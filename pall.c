@@ -1,22 +1,22 @@
 #include "monty.h"
 
 /**
- * pall - prints all the values on the stack, starting from the top
- * @stack: pointer to the top of the stack
- * @line_number: line number of the opcode
- * Return: void
+ * pall- prints all the values on the stack
+ * @stack: stack to fill
+ * @line_number: line number
  */
 
 void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current;
-	(void)line_number;
+	(void) line_number;
+	stack_t *node;
 
-	current = *stack;
-
-	while (current != NULL)
+	if (*stack == NULL)
+		return;
+	node = *stack;
+	while (node != NULL)
 	{
-		printf("%d\n", current->n);
-		current = current->next;
+		fprintf(stdout, "%d\n", node->n);
+		node = node->next;
 	}
 }

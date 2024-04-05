@@ -1,23 +1,23 @@
 #include "monty.h"
 
 /**
- * pint - prints the value at the top of the stack
- * @stack: pointer to the top of the stack
- * @line_number: line number of the opcode
- * Return: void
+ * pint - print element at the top of the stack
+ * @stack: stack containing elements
+ * @line_number: number of line
  */
 
 void pint(stack_t **stack, unsigned int line_number)
 {
-	(void)line_number;
+	stack_t *node;
 
-	if (stack == NULL || *stack == NULL)
+	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		fclose(_close.file);
+		free(_close.tmp);
+		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		printf("%d\n", (*stack)->n);
-	}
+	node = *stack;
+	fprintf(stdout, "%d\n", node->n);
 }

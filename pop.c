@@ -1,27 +1,31 @@
 #include "monty.h"
-#include <ctype.h>
 
 /**
- * pop - Pushes an element onto the stack.
- *
- * @arrayStack: Pointer to the top of the stack.
- * Return: 1 on success, 0 on failure.
+ * pop - removes the top element of the stack
+ * @stack: pointer to the top of the stack
+ * @line_number: line number of the opcode
+ * Return: void
  */
-int pop(stack_t **arrayStack)
+
+void pop(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp;
+	stack_t *current;
+	(void)line_number;
 
-	if (*arrayStack == NULL)
-		return (4);
-
-	if ((*arrayStack)->next)
+	if (stack == NULL || *stack == NULL)
 	{
-		tmp = *arrayStack;
-		*arrayStack = (*arrayStack)->next;
-		free(tmp);
-		return (1);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
 	}
-	free(*arrayStack);
-	*arrayStack = NULL;
-	return (1);
+	current = *stack;
+	if (current->next != NULL)
+	{
+		current->next->prev = current->prev;
+		*stack = current->next;
+	}
+	else
+	{
+		*stack = NULL;
+	} 
+	free(current);
 }
